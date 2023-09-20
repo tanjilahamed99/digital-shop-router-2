@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import Products from './pages/Products'
 import Dashboard from './pages/dashboard'
 import Details from './pages/details'
+import Profile from './dashboard-pages/Profile'
 
 const route = createBrowserRouter([
   {
@@ -24,12 +25,26 @@ const route = createBrowserRouter([
       },
       {
         path: '/dashboard',
-        element: <Dashboard></Dashboard>
+        element: <Dashboard></Dashboard>,
+        children: [
+          {
+            path: '/dashboard',
+            element: <div>dashboard</div>
+          },
+          {
+            path: '/dashboard/profile',
+            element: <Profile></Profile>
+          },
+          {
+            path: '/dashboard/editProfile',
+            element:<div>edit profile</div>
+          },
+        ]
       },
       {
         path: '/product/:productId',
         element: <Details></Details>,
-        loader:({params})=>fetch(`https://dummyjson.com/products/${params.productId}`)
+        loader: ({ params }) => fetch(`https://dummyjson.com/products/${params.productId}`)
       }
     ]
   }
